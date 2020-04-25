@@ -25,6 +25,7 @@ def home():
 def random():
     item2 = getRandomSrc(src)
     search = item2["search"]
+    sound = item2["sound"]
     img = makeimage.makeImage(search, src)
     return send_file('go_brr.png', mimetype='image')
 
@@ -102,7 +103,7 @@ def parse():
                 #request.form['user_i'] = input term
                 #verbose = verbose form of term
                 #img = the link to image to be displayed
-            upsertDB(request.form['user_i'], img, verbose, src)
+            upsertDB(request.form['user_i'], img, verbose, sound, src)
 
             img = makeimage.makeImage(request.form['user_i'], src, sound)
 
