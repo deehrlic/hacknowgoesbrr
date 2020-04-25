@@ -7,6 +7,8 @@ import urllib.request
 from pymongo import MongoClient
 from databasemachine import upsertDB, connect
 import makeimage
+from nltk.corpus import wordnet
+from random import randrange
 
 app = Flask(__name__)
 src = connect()
@@ -20,14 +22,43 @@ def parse():
     if request.method == "POST":
 
         #make verbose
+        verbo = request.form['user_i']
+
+        if verbo == "money printer":
+            return send_file('original_meme.png', mimetype='image')
+
+
+        verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go brrrrr!"
         #you cant just make -synonym/hypernym- machine go brrrrr
-        verbose = "NOOOOOOOOOOOOOOO!!! You can't just make " + request.form['user_i'] + " go brrrrr!"
+
+
+
+
 
 
         #get image from wikipedia and save to computer
         res = wikipedia.search(request.form['user_i'])
         img = ""
         if len(res) > 0:
+
+
+            if len(wordnet.synsets(verbo)) > 0:
+                syn = wordnet.synsets(request.form['user_i'])[0]
+                lemmas = syn.lemmas()
+                if len(syn.lemmas()) > 1:
+                    if lemmas[0].name() == verbo:
+                        verbo = lemmas[1].name()
+                    else:
+                        verbo = lemmas[0].name()
+                    print(verbo)
+                    verbo.replace("_"," ")
+                    verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + "ing machine go brrrrr!"
+                    print(verbose)
+
+            print(verbose)
+
+
+
             try:
                 imgs = [i for i in wikipedia.page(res[0]).images if i.endswith(".jpg")]
                 print(imgs)
@@ -37,17 +68,20 @@ def parse():
                     path = "static/"+request.form['user_i'].replace(" ","")+".jpg"
                     urllib.request.urlretrieve(img, path)
                 else:
-                    return 'uh oh thats bad'
+                    return send_file('404page.png', mimetype='image')
 
             except wikipedia.DisambiguationError as e:
-                imgs = [i for i in wikipedia.page(e.options[0]).images if i.endswith(".jpg")]
+                chosen = e.options[0]
+                if chosen == request.form['user_i']:
+                    chosen= e.options[1]
+                imgs = [i for i in wikipedia.page(chosen).images if i.endswith(".jpg")]
                 if len(imgs) > 0:
                     img = imgs[0]
                     print(img)
-                    path = "static/"+e.options[0].replace(" ","")+".jpg"
+                    path = "static/"+chosen.replace(" ","")+".jpg"
                     urllib.request.urlretrieve(img, path)
                 else:
-                    return 'uh oh thats bad section 2'
+                    return send_file('404page.png', mimetype='image')
 
 
 
@@ -66,20 +100,10 @@ def parse():
 
         #THIS MEANS SEARCH FAILED BRO
         else:
-            return 'sdfsdfds'
+            return send_file('404page.png', mimetype='image')
 
 
 
-
-
-
-
-        return verbose
-
-
-        #get image
-        #send to mongo
-        #assemble image
 
 if __name__ == "__main__":
     app.run(debug=True)
