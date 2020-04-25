@@ -5,14 +5,11 @@ import requests
 import wikipedia, random
 import urllib.request
 from pymongo import MongoClient
-from databasemachine import upsertDB
+from databasemachine import upsertDB, connect
 import makeimage
 
 app = Flask(__name__)
-client = MongoClient("mongodb+srv://machinego:machinego123@mememachine-dopfr.gcp.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
-db = client.get_database('ImageSource')
-src = db.source
+src = connect()
 
 @app.route("/")
 def home():
@@ -60,7 +57,7 @@ def parse():
                 #img = the link to image to be displayed
             upsertDB(request.form['user_i'], img, verbose, src)
 
-            img = makeimage.makeImage(request.form['user_i'])
+            img = makeimage.makeImage(request.form['user_i'], src)
 
             #change to PIL image
             #return send_file(path, mimetype='image')

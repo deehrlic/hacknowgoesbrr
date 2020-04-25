@@ -1,10 +1,16 @@
 #TAKES ARG THAT IS MONGO KEY
-
+# from databasemachine import getLink
 from PIL import Image, ImageDraw, ImageFont
 
-def makeImage(key):
+def makeImage(key, src):
 
     #GET MONGO INFO
+    item = src.find_one({"search" : key})
+    print(type(item))
+    search = key
+    verbose = item["verbose"]
+    link = item["link"]
+
 
     img = Image.new('RGB', (600, 300), color = 'white')
 
