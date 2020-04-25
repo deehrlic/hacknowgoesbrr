@@ -32,16 +32,27 @@ def parse():
         img = ""
         if len(res) > 0:
             try:
-                img = wikipedia.page(res[0]).images[0]
-                print(img)
-                path = "static/"+res[0].replace(" ","")+".jpg"
+                imgs = [i for i in wikipedia.page(res[0]).images if i.endswith(".jpg")]
+                print(imgs)
+                if len(imgs)>0:
+                    img = imgs[0]
+                    print(img)
+                    path = "static/"+request.form['user_i'].replace(" ","")+".jpg"
+                    urllib.request.urlretrieve(img, path)
+                else:
+                    return 'uh oh thats bad'
 
             except wikipedia.DisambiguationError as e:
-                img = wikipedia.page(e.options[0]).images[0]
-                print(img)
-                path = "static/"+e.options[0].replace(" ","")+".jpg"
+                imgs = [i for i in wikipedia.page(e.options[0]).images if i.endswith(".jpg")]
+                if len(imgs) > 0:
+                    img = imgs[0]
+                    print(img)
+                    path = "static/"+e.options[0].replace(" ","")+".jpg"
+                    urllib.request.urlretrieve(img, path)
+                else:
+                    return 'uh oh thats bad section 2'
 
-            urllib.request.urlretrieve(img, path)
+
 
                 #SEND TO MONGO
                 #request.form['user_i'] = input term
@@ -49,10 +60,11 @@ def parse():
                 #img = the link to image to be displayed
             upsertDB(request.form['user_i'], img, verbose, src)
 
-            img = makeImage(request.form['user_i'])
+            img = makeimage.makeImage(request.form['user_i'])
 
             #change to PIL image
-            return send_file(img, mimetype='image')
+            #return send_file(path, mimetype='image')
+            return send_file('go_brr.png', mimetype='image')
 
 
         #THIS MEANS SEARCH FAILED BRO
