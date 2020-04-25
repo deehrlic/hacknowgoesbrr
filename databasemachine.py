@@ -11,12 +11,16 @@ def connect():
 
 
 def upsertDB(search, link, verbose, src):
-    db_update = {
-        "search": search,
-        "link": link,
-        "verbose": verbose
-    }
-    src.insert(db_update)
+    if not list(src.find({"search": search})):
+        print("upsert!")
+        db_update = {
+            "search": search,
+            "link": link,
+            "verbose": verbose
+        }
+        src.insert(db_update)
+    else:
+        print("don't do it!")
 
 # def getLink(key):
 
