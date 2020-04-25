@@ -6,19 +6,16 @@ import wikipedia, random
 import urllib.request
 from pymongo import MongoClient
 from databasemachine import upsertDB
+import makeimage
 
 app = Flask(__name__)
 client = MongoClient("mongodb+srv://machinego:machinego123@mememachine-dopfr.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client.test
 db = client.get_database('ImageSource')
-src = db.source 
+src = db.source
 
 @app.route("/")
 def home():
-    print(src.count_documents({}))
-    memes = list(src.find())
-    print(memes)
-    print(len(memes))
     return render_template("frontpage.html")
 
 @app.route("/parse", methods=['GET', 'POST'])
@@ -52,8 +49,10 @@ def parse():
                 #img = the link to image to be displayed
             upsertDB(request.form['user_i'], img, verbose, src)
 
+            img = makeImage(request.form['user_i'])
+
             #change to PIL image
-            return send_file(path, mimetype='image')
+            return send_file(img, mimetype='image')
 
 
         #THIS MEANS SEARCH FAILED BRO
@@ -75,4 +74,3 @@ def parse():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
