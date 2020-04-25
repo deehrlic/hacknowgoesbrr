@@ -14,11 +14,19 @@ src = connect()
 
 @app.route("/")
 def home():
-    item = getRandomSrc(src)
-    search = item["search"]
-    link = item["link"]
-    verbose = item["verbose"]
-    return render_template("frontpage.html", user_image = 'static/hotdog.jpg')
+    #item2 = getRandomSrc(src)
+    #search = item2["search"]
+    #link = item["link"]
+    #verbose = item["verbose"]
+    #img = makeimage.makeImage(search, src)
+    return render_template("frontpage.html", user_image = "static/splash.png")
+
+@app.route("/random")
+def random():
+    item2 = getRandomSrc(src)
+    search = item2["search"]
+    img = makeimage.makeImage(search, src)
+    return send_file('go_brr.png', mimetype='image')
 
 @app.route("/parse", methods=['GET', 'POST'])
 def parse():
@@ -69,16 +77,19 @@ def parse():
                     return send_file('404page.png', mimetype='image')
 
             except wikipedia.DisambiguationError as e:
-                chosen = e.options[0]
-                if chosen == request.form['user_i']:
-                    chosen= e.options[1]
-                imgs = [i for i in wikipedia.page(chosen).images if i.endswith(".jpg")]
-                if len(imgs) > 0:
-                    img = imgs[0]
-                    print(img)
-                    path = "static/"+chosen.replace(" ","")+".jpg"
-                    urllib.request.urlretrieve(img, path)
-                else:
+                try:
+                    chosen = e.options[0]
+                    if chosen == request.form['user_i']:
+                        chosen= e.options[1]
+                    imgs = [i for i in wikipedia.page(chosen).images if i.endswith(".jpg")]
+                    if len(imgs) > 0:
+                        img = imgs[0]
+                        print(img)
+                        path = "static/"+chosen.replace(" ","")+".jpg"
+                        urllib.request.urlretrieve(img, path)
+                    else:
+                        return send_file('404page.png', mimetype='image')
+                except wikipedia.DisambiguationError as e:
                     return send_file('404page.png', mimetype='image')
 
 

@@ -33,7 +33,7 @@ def makeImage(key, src):
 
     #rightguy uses mongo_key
     font = ImageFont.truetype("arial.ttf", 20)
-    d.text((300,210), "haha "+key[:18]+" go brrrr", fill=(0,0,0), font=font)
+    d.text((300,210), "haha "+key[:20]+" go brrrr", fill=(0,0,0), font=font)
 
     path = "static/"+key.replace(" ","")+".jpg"
     urllib.request.urlretrieve(link, path)
