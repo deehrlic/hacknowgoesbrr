@@ -1,5 +1,6 @@
 
 from pymongo import MongoClient
+import random
 
 #conect to db and return cluster thing
 def connect():
@@ -9,7 +10,7 @@ def connect():
     src = db.source
     return src
 
-
+#insert new search intodb
 def upsertDB(search, link, verbose, src):
     if not list(src.find({"search": search})):
         print("upsert!")
@@ -22,7 +23,10 @@ def upsertDB(search, link, verbose, src):
     else:
         print("don't do it!")
 
-# def getLink(key):
+# get random source
+def getRandomSrc(src):
+    res = list(src.find({}))
+    return res[random.randint(0, len(res) - 1)]
 
 
 

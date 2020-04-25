@@ -3,28 +3,33 @@
 
 <head>
   <style>
-    .flex-container {
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+
     body, html {
       background-color: #FFFFFF;
       background-size: cover;
-      background-image: url('https://i.kym-cdn.com/photos/images/newsfeed/001/781/373/b1e.png');
       background-repeat: no-repeat;
     }
-
+    form {
+      position: absolute;
+      left: 500px;
+      top: 120px;
+    }
     button {
       font-size: 300%;
       display: block;
+      position: absolute;
+      left: 700px;
+      top: 120px;
+    }
+    input{
+      position: absolute;
+      left: 400px;
+      top: 120px;
+    }
+    img{
+      position: absolute;
+      left: 500px;
+      top: 120px;
     }
     .main{
       text-align: center;
@@ -37,22 +42,15 @@
 
 <body>
 
-
-<<<<<<< HEAD
   <img src="{{ user_image }}" alt="User Image">
-  <form method="POST" action="/parse">
-  <input type="text" id="user_i" name="user_i" maxlength="20"><br>
-  <button type="submit">brrrrrrr</button>
 
-=======
-  <div class = "flex-container">
+
     <form method="POST" action="/parse">
       <input type="text" id="user_i" name="user_i"><br></input>
       <button type="submit">brrrrrrr</button>
 
     </form>
-  </div>
->>>>>>> bed65d8390f2cf925ce0e3e26109cbbaaad1769b
+
 
 
 
