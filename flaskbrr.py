@@ -4,11 +4,21 @@ import requests
 #from bs4 import BeautifulSoup
 import wikipedia, random
 import urllib.request
+from pymongo import MongoClient
+from databasemachine import upsertDB
 
 app = Flask(__name__)
+client = MongoClient("mongodb+srv://machinego:machinego123@mememachine-dopfr.gcp.mongodb.net/test?retryWrites=true&w=majority")
+db = client.test
+db = client.get_database('ImageSource')
+src = db.source 
 
 @app.route("/")
 def home():
+    print(src.count_documents({}))
+    memes = list(src.find())
+    print(memes)
+    print(len(memes))
     return render_template("frontpage.html")
 
 @app.route("/parse", methods=['GET', 'POST'])
@@ -40,6 +50,7 @@ def parse():
                 #request.form['user_i'] = input term
                 #verbose = verbose form of term
                 #img = the link to image to be displayed
+            upsertDB(request.form['user_i'], img, verbose, src)
 
             #change to PIL image
             return send_file(path, mimetype='image')
@@ -64,3 +75,4 @@ def parse():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
