@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, send_file
 import re
 import requests
-#from bs4 import BeautifulSoup
 import wikipedia, random
 import urllib.request
 from pymongo import MongoClient
@@ -15,7 +14,7 @@ src = connect()
 
 @app.route("/")
 def home():
-    return render_template("frontpage.html")
+    return render_template("frontpage.html", user_image = 'static/hotdog.jpg')
 
 @app.route("/parse", methods=['GET', 'POST'])
 def parse():
@@ -30,11 +29,6 @@ def parse():
 
         verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go brrrrr!"
         #you cant just make -synonym/hypernym- machine go brrrrr
-
-
-
-
-
 
         #get image from wikipedia and save to computer
         res = wikipedia.search(request.form['user_i'])
@@ -63,7 +57,7 @@ def parse():
                 imgs = [i for i in wikipedia.page(res[0]).images if i.endswith(".jpg")]
                 print(imgs)
                 if len(imgs)>0:
-                    img = imgs[0]
+                    img = imgs[randrange(len(imgs))]
                     print(img)
                     path = "static/"+request.form['user_i'].replace(" ","")+".jpg"
                     urllib.request.urlretrieve(img, path)
