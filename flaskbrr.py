@@ -18,7 +18,7 @@ def home():
     search = item["search"]
     link = item["link"]
     verbose = item["verbose"]
-    return render_template("frontpage.html", user_image = 'static/hotdog.jpg')
+    return render_template("frontpage.html", user_image = 'static/b1e.png')
 
 @app.route("/parse", methods=['GET', 'POST'])
 def parse():

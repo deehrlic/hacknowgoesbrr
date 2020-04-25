@@ -3,7 +3,10 @@
 
 <head>
   <style>
-
+    .flex{
+      display: flex;
+      justify-content: center;
+    }
     body, html {
       background-color: #FFFFFF;
       background-size: cover;
@@ -15,20 +18,31 @@
       top: 120px;
     }
     button {
-      font-size: 300%;
+      font-size: 200%;
       display: block;
       position: absolute;
-      left: 700px;
-      top: 120px;
+      left: 500px;
+      top: -10px;
     }
-    input{
+    .textbox{
+      display: flex;
+      /* justify-content: center; */
+      flex-direction: row;
       position: absolute;
-      left: 400px;
-      top: 120px;
+      
+      left: 150px;
+      align-items: center;
+      top: 350px;
+     
     }
+    .text{
+      width:400px;
+
+    }
+    
     img{
       position: absolute;
-      left: 500px;
+      left: 625px;
       top: 120px;
     }
     .main{
@@ -44,12 +58,13 @@
 
   <img src="{{ user_image }}" alt="User Image">
 
-
+  <div class = "textbox">
     <form method="POST" action="/parse">
-      <input type="text" id="user_i" name="user_i"><br></input>
+      <input  class = "text" type="text" id="user_i" name="user_i"><br></input>
       <button type="submit">brrrrrrr</button>
 
     </form>
+  </div>
 
 
 
