@@ -19,7 +19,7 @@ def home():
     #link = item["link"]
     #verbose = item["verbose"]
     #img = makeimage.makeImage(search, src)
-    return render_template("frontpage.html", user_image = "static/splash.png")
+    return render_template("frontpage.html", user_image = "static/splash1.png")
 
 @app.route("/random")
 def random():
@@ -34,12 +34,13 @@ def parse():
 
         #make verbose
         verbo = request.form['user_i']
+        sound = request.form['sounds']
 
         if verbo == "money printer":
             return send_file('original_meme.png', mimetype='image')
 
 
-        verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go brrrrr!"
+        verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go " + sound + "!"
         #you cant just make -synonym/hypernym- machine go brrrrr
 
         #get image from wikipedia and save to computer
@@ -48,20 +49,7 @@ def parse():
         if len(res) > 0:
 
 
-            if len(wordnet.synsets(verbo)) > 0:
-                syn = wordnet.synsets(request.form['user_i'])[0]
-                lemmas = syn.lemmas()
-                if len(syn.lemmas()) > 1:
-                    if lemmas[0].name() == verbo:
-                        verbo = lemmas[1].name()
-                    else:
-                        verbo = lemmas[0].name()
-                    print(verbo)
-                    verbo.replace("_"," ")
-                    verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + "ing machine go brrrrr!"
-                    print(verbose)
 
-            print(verbose)
 
 
 
@@ -73,8 +61,24 @@ def parse():
                     print(img)
                     path = "static/"+request.form['user_i'].replace(" ","")+".jpg"
                     urllib.request.urlretrieve(img, path)
+
+                    if len(wordnet.synsets(verbo)) > 0:
+                        syn = wordnet.synsets(request.form['user_i'])[0]
+                        lemmas = syn.lemmas()
+                        if len(syn.lemmas()) > 1:
+                            if lemmas[0].name() == verbo:
+                                verbo = lemmas[1].name()
+                            else:
+                                verbo = lemmas[0].name()
+                            print(verbo)
+                            verbo.replace("_"," ")
+                            verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + "ing machine go " + sound + "!"
+                            print(verbose)
+
+                    print(verbose)
                 else:
                     return send_file('404page.png', mimetype='image')
+
 
             except wikipedia.DisambiguationError as e:
                 try:
@@ -100,7 +104,7 @@ def parse():
                 #img = the link to image to be displayed
             upsertDB(request.form['user_i'], img, verbose, src)
 
-            img = makeimage.makeImage(request.form['user_i'], src)
+            img = makeimage.makeImage(request.form['user_i'], src, sound)
 
             #change to PIL image
             #return send_file(path, mimetype='image')

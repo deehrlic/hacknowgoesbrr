@@ -2,7 +2,7 @@
 # from databasemachine import getLink
 from PIL import Image, ImageDraw, ImageFont
 import urllib.request
-def makeImage(key, src):
+def makeImage(key, src, sound):
 
     #GET MONGO INFO
     item = src.find_one({"search" : key})
@@ -33,7 +33,7 @@ def makeImage(key, src):
 
     #rightguy uses mongo_key
     font = ImageFont.truetype("arial.ttf", 20)
-    d.text((300,210), "haha "+key[:20]+" go brrrr", fill=(0,0,0), font=font)
+    d.text((300,210), "haha "+key[:20]+" go " + sound, fill=(0,0,0), font=font)
 
     path = "static/"+key.replace(" ","")+".jpg"
     urllib.request.urlretrieve(link, path)

@@ -14,36 +14,58 @@
     }
     form {
       position: absolute;
-      left: 500px;
+      left: 400px;
       top: 120px;
     }
     button {
       font-size: 200%;
       display: block;
       position: absolute;
-      left: 500px;
-      top: -10px;
+      left: 610px;
+      top:0px;
     }
     .textbox{
       display: flex;
       /* justify-content: center; */
       flex-direction: row;
       position: absolute;
-      
-      left: 150px;
+
+      left:-60px;
       align-items: center;
-      top: 350px;
-     
+      top: 300px;
+
     }
     .text{
       width:400px;
+      font-size: 200%;
+
 
     }
-    
+
+    select{
+      position: absolute;
+      left: 470px;
+      top: 0px;
+      height:100%;
+    }
+
+    h1{
+      position: absolute;
+      left: 250px;
+      top: 400px;
+      font-family: "Arial";
+    }
+    h2{
+      position: absolute;
+      left: 760px;
+      top: 405px;
+      font-family: "Arial";
+    }
+
     img{
       position: absolute;
-      left: 625px;
-      top: 120px;
+      left: 320px;
+      top: 100px;
     }
     .main{
       text-align: center;
@@ -56,12 +78,22 @@
 
 <body>
 
+  <h1> Make </h1>
+  <h2> go </h2>
+
   <img src="{{ user_image }}" alt="User Image">
 
   <div class = "textbox">
     <form method="POST" action="/parse">
       <input  class = "text" type="text" id="user_i" name="user_i"><br></input>
-      <button type="submit">brrrrrrr</button>
+      <select name = "sounds">
+        <option value="brrrr">brrrr</option>
+        <option value="wheeeee">wheeeee</option>
+        <option value="nyooooom">nyooooom</option>
+        <option value="skrrrrrt">skrrrrrt</option>
+        <option value="weewooweewoo">weewooweewoo</option>
+      </select>
+      <button type="submit">Generate!</button>
 
     </form>
   </div>
