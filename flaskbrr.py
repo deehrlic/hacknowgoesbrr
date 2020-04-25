@@ -5,7 +5,7 @@ import requests
 import wikipedia, random
 import urllib.request
 from pymongo import MongoClient
-from databasemachine import upsertDB, connect
+from databasemachine import upsertDB, connect, getRandomSrc
 import makeimage
 from nltk.corpus import wordnet
 from random import randrange
@@ -15,6 +15,10 @@ src = connect()
 
 @app.route("/")
 def home():
+    item = getRandomSrc(src)
+    search = item["search"]
+    link = item["link"]
+    verbose = item["verbose"]
     return render_template("frontpage.html")
 
 @app.route("/parse", methods=['GET', 'POST'])
