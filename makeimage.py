@@ -2,7 +2,7 @@
 # from databasemachine import getLink
 from PIL import Image, ImageDraw, ImageFont
 import urllib.request
-def makeImage(key, src, sound):
+def makeImage(key, src):
 
     #GET MONGO INFO
     item = src.find_one({"search" : key})
@@ -10,6 +10,7 @@ def makeImage(key, src, sound):
     search = key
     verbose = item["verbose"]
     link = item["link"]
+    sound = item["sound"]
 
 
     img = Image.new('RGB', (600, 300), color = 'white')
