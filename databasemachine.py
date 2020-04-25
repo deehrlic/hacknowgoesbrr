@@ -11,13 +11,14 @@ def connect():
     return src
 
 #insert new search intodb
-def upsertDB(search, link, verbose, src):
+def upsertDB(search, link, verbose, sound, src):
     if not list(src.find({"search": search})):
         print("upsert!")
         db_update = {
             "search": search,
             "link": link,
-            "verbose": verbose
+            "verbose": verbose,
+            "sound": sound
         }
         src.insert(db_update)
     else:

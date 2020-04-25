@@ -6,7 +6,6 @@ def makeImage(key, src):
 
     #GET MONGO INFO
     item = src.find_one({"search" : key})
-    print(type(item))
     search = key
     verbose = item["verbose"]
     link = item["link"]
