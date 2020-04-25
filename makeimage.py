@@ -6,6 +6,7 @@ def makeImage(key, src):
 
     #GET MONGO INFO
     item = src.find_one({"search" : key})
+    print(type(item))
     search = key
     verbose = item["verbose"]
     link = item["link"]
@@ -29,7 +30,7 @@ def makeImage(key, src):
     verbose = verbose.replace("! ","! \n")
     verbose = verbose.replace("ing ma","ing \nma")
     print(verbose)
-    d.text((40,210), verbose, fill=(0,0,0), font=font)
+    d.text((40,210), verbose + "\n" + sound + "!!!", fill=(0,0,0), font=font)
 
     #rightguy uses mongo_key
     font = ImageFont.truetype("arial.ttf", 20)

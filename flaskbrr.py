@@ -41,7 +41,7 @@ def parse():
             return send_file('original_meme.png', mimetype='image')
 
 
-        verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go " + sound + "!"
+        verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + " go "
         #you cant just make -synonym/hypernym- machine go brrrrr
 
         #get image from wikipedia and save to computer
@@ -73,7 +73,7 @@ def parse():
                                 verbo = lemmas[0].name()
                             print(verbo)
                             verbo.replace("_"," ")
-                            verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + "ing machine go " + sound + "!"
+                            verbose = "NOOOOOOOOOO" + '!'*randrange(5,8) + " You can't just make " + verbo + "ing machine go "
                             print(verbose)
 
                     print(verbose)
@@ -105,7 +105,7 @@ def parse():
                 #img = the link to image to be displayed
             upsertDB(request.form['user_i'], img, verbose, sound, src)
 
-            img = makeimage.makeImage(request.form['user_i'], src, sound)
+            img = makeimage.makeImage(request.form['user_i'], src)
 
             #change to PIL image
             #return send_file(path, mimetype='image')

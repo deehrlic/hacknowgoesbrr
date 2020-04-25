@@ -12,7 +12,7 @@ def connect():
 
 #insert new search intodb
 def upsertDB(search, link, verbose, sound, src):
-    if not list(src.find({"search": search, "sound": sound)):
+    if not list(src.find({"search": search, "sound": sound})):
         print("upsert!")
         db_update = {
             "search": search,
@@ -36,7 +36,4 @@ def getRandomSrc(src):
 # db = client.test
 
 # db = client.get_database('ImageSource')
-# src = db.source 
-
-
-
+# src = db.source
