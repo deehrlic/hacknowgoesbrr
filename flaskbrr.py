@@ -117,8 +117,8 @@ def parse():
             return send_file('404page.png', mimetype='image')
 
 
-def app():
+
+    
+if __name__ == "__main__":
     app.run(debug=True)
 
-if __name__ == "__main__":
-    app()
