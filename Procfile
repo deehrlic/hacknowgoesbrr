@@ -1,2 +1,2 @@
-web: python flaskbrr.py runserver 0.0.0.0:5000
+web gunicorn flaskbrr:__main__
 heroku ps:scale web=1
