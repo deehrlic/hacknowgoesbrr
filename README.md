@@ -1,4 +1,4 @@
-To run:\n
+To run:
 - run pip3 install -r requirements.txt\n
 - python3 flaskbrr.py\n
 - go to http://localhost:5000\n
