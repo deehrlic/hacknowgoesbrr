@@ -1,3 +1,8 @@
+To run:
+run pip3 install -r requirements.txt
+python3 flaskbrr.py
+go to http://localhost:5000 
+
 # hacknowgoesbrr
 brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 
